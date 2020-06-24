@@ -1,21 +1,35 @@
 package xyz.izadi.oishiiwallpapers.data.paging
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import xyz.izadi.oishiiwallpapers.data.PhotoRepository
 import xyz.izadi.oishiiwallpapers.data.UnsplashPhoto
 
+@ExperimentalCoroutinesApi
+@FlowPreview
 class PhotosViewModel(application: Application) : AndroidViewModel(application) {
     var photoPagedList: LiveData<PagedList<UnsplashPhoto>>? = null
     private var liveDataSource: LiveData<PageKeyedDataSource<Int, UnsplashPhoto>>? = null
 
+    val queryChannel = ConflatedBroadcastChannel<String>()
+
     init {
-        val photoDataSourceFactory = PhotoDataSourceFactory()
+        val repository = PhotoRepository()
+        val photoDataSourceFactory = PhotoDataSourceFactory(
+            currentQuery = queryChannel,
+            repository = repository,
+            scope = viewModelScope
+        )
 
         liveDataSource = photoDataSourceFactory.photoLiveDataSource
 
@@ -25,14 +39,22 @@ class PhotosViewModel(application: Application) : AndroidViewModel(application) 
 
         photoPagedList = LivePagedListBuilder(photoDataSourceFactory, pagedListConfig)
             .build()
+
+        queryChannel.asFlow()
+            .debounce(QUERY_DEBOUNCE)
+            .onEach { (liveDataSource as MutableLiveData<PageKeyedDataSource<Int, UnsplashPhoto>>).value?.invalidate() }
+            .launchIn(viewModelScope)
     }
 
     class Factory(private val application: Application) : ViewModelProvider.NewInstanceFactory() {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-
             return PhotosViewModel(application) as T
         }
 
+    }
+
+    companion object {
+        private const val QUERY_DEBOUNCE = 500L
     }
 }
