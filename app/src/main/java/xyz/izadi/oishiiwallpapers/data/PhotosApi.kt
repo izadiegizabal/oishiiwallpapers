@@ -40,5 +40,8 @@ data class UnsplashResponse(
 //A retrofit Network Interface for the Api
 interface UnsplashApi {
     @GET("/search/photos")
-    suspend fun getPics(@Query("query") searchQuery: String): UnsplashResponse
+    suspend fun getPics(
+        @Query("query") searchQuery: String = "food",
+        @Query("page") currentPage: Int = 1
+    ): UnsplashResponse
 }

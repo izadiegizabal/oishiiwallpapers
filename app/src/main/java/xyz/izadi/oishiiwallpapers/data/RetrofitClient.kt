@@ -25,7 +25,7 @@ object RetrofitClient {
         .addInterceptor(authInterceptor)
         .build()
 
-    val apiService by lazy {
+    val apiService: UnsplashApi by lazy {
         Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://api.unsplash.com/")
