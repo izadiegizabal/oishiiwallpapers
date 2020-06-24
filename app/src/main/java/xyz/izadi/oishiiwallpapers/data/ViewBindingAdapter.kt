@@ -16,7 +16,7 @@ object ViewBindingAdapter {
     @JvmStatic
     @BindingAdapter("loadImageUrl")
     fun loadImage(view: ImageView, imageUrl: String?) {
-        if(imageUrl != null){
+        if (imageUrl != null) {
             view.load(imageUrl)
         }
     }

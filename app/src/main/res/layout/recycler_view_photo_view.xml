@@ -5,7 +5,10 @@
     tools:context=".MainActivity">
 
     <data>
-        <variable name="photo" type="xyz.izadi.oishiiwallpapers.data.UnsplashPhoto" />
+
+        <variable
+            name="photo"
+            type="xyz.izadi.oishiiwallpapers.data.UnsplashPhoto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

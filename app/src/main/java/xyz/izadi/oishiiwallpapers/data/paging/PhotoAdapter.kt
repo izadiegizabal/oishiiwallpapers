@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.databinding.library.baseAdapters.BR
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import xyz.izadi.oishiiwallpapers.R
-import androidx.databinding.library.baseAdapters.BR
 import xyz.izadi.oishiiwallpapers.data.UnsplashPhoto
 import xyz.izadi.oishiiwallpapers.databinding.RecyclerViewPhotoViewBinding
 
@@ -24,14 +24,15 @@ class PhotoAdapter constructor(private val context: Context) :
                 LayoutInflater.from(parent.context),
                 R.layout.recycler_view_photo_view,
                 parent,
-                false) as RecyclerViewPhotoViewBinding
+                false
+            ) as RecyclerViewPhotoViewBinding
         return PhotoViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         val photo = getItem(position)
 
-        if(photo != null && holder.binding != null) {
+        if (photo != null && holder.binding != null) {
             holder.binding.setVariable(BR.photo, photo)
             holder.binding.executePendingBindings()
         } else {
@@ -50,7 +51,10 @@ class PhotoAdapter constructor(private val context: Context) :
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: UnsplashPhoto, newItem: UnsplashPhoto): Boolean {
+            override fun areContentsTheSame(
+                oldItem: UnsplashPhoto,
+                newItem: UnsplashPhoto
+            ): Boolean {
                 return oldItem == newItem
             }
         }

@@ -1,18 +1,13 @@
 package xyz.izadi.oishiiwallpapers.data.paging
 
-import android.provider.Contacts
-import androidx.lifecycle.liveData
-import androidx.paging.ItemKeyedDataSource
 import androidx.paging.PageKeyedDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import xyz.izadi.oishiiwallpapers.data.PhotoRepository
 import xyz.izadi.oishiiwallpapers.data.UnsplashPhoto
-import xyz.izadi.oishiiwallpapers.data.UnsplashResponse
 
-class PhotoDataSource: PageKeyedDataSource<Int, UnsplashPhoto>() {
+class PhotoDataSource : PageKeyedDataSource<Int, UnsplashPhoto>() {
 
     private val repository: PhotoRepository = PhotoRepository()
 
@@ -20,8 +15,8 @@ class PhotoDataSource: PageKeyedDataSource<Int, UnsplashPhoto>() {
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, UnsplashPhoto>
     ) {
-        getPhotos(1) {
-            photos ->  callback.onResult(photos,null, 2)
+        getPhotos(1) { photos ->
+            callback.onResult(photos, null, 2)
         }
     }
 
@@ -38,7 +33,11 @@ class PhotoDataSource: PageKeyedDataSource<Int, UnsplashPhoto>() {
         }
     }
 
-    private fun getPhotos(newPageNum: Int, query: String = "donostia", pagingCallback: (List<UnsplashPhoto>) -> Unit) {
+    private fun getPhotos(
+        newPageNum: Int,
+        query: String = "food",
+        pagingCallback: (List<UnsplashPhoto>) -> Unit
+    ) {
         CoroutineScope(Dispatchers.IO).launch {
             val photos = repository.getNextPhotos(query, newPageNum)
             pagingCallback(photos.results)

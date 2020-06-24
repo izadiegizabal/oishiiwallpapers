@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import xyz.izadi.oishiiwallpapers.data.paging.PhotoAdapter
@@ -23,8 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = setContentView(this, R.layout.activity_main)
-        binding.rv.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-        binding.rv.setHasFixedSize(true)
+        binding.rv.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.lifecycleOwner = this
 
         binding.isLoading = true
@@ -49,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 adapter.submitList(photos)
                 Handler().postDelayed({
                     binding.isLoading = false
-                },2000)
+                }, 2000)
             }
         })
     }

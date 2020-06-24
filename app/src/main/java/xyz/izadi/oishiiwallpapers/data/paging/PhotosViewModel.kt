@@ -10,7 +10,7 @@ import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import xyz.izadi.oishiiwallpapers.data.UnsplashPhoto
 
-class PhotosViewModel(application: Application): AndroidViewModel(application) {
+class PhotosViewModel(application: Application) : AndroidViewModel(application) {
     var photoPagedList: LiveData<PagedList<UnsplashPhoto>>? = null
     private var liveDataSource: LiveData<PageKeyedDataSource<Int, UnsplashPhoto>>? = null
 
