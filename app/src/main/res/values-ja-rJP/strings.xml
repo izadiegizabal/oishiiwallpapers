@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">美味しい壁紙</string>
+    <string name="query_hint">一番好きな料理は？</string>
+    <string name="photo_information">詳細情報</string>
+    <string name="subtitle_camera_info">写真のインフォメーションなど</string>
+</resources>
