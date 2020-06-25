@@ -21,6 +21,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "UNSPLASH_API_KEY", apiKeyProperties['unsplash_api_key'])
+        buildConfigField("String", "MAPBOX_API_KEY", apiKeyProperties['mapbox_api_key'])
     }
 
     buildTypes {

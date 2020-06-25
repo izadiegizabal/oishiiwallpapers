@@ -4,4 +4,6 @@
     <string name="query_hint">一番好きな料理は？</string>
     <string name="photo_information">詳細情報</string>
     <string name="subtitle_camera_info">写真のインフォメーションなど</string>
+    <string name="dv_description">デスクリプション</string>
+    <string name="dv_size">サイズ</string>
 </resources>
