@@ -1,13 +1,16 @@
 package xyz.izadi.oishiiwallpapers.data.api
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.util.*
 
 data class UnsplashQueryOptions(
     var query: String = "food",
     var orderBy: UnsplashOrderBy = UnsplashOrderBy.RELEVANT,
-    var color: UnsplashColor = UnsplashColor.ANY,
-    var orientation: UnsplashOrientation = UnsplashOrientation.ANY
+    var color: UnsplashColor? = UnsplashColor.ANY,
+    var orientation: UnsplashOrientation? = UnsplashOrientation.ANY
 )
 
 enum class UnsplashOrderBy(val value: String) {
@@ -37,32 +40,37 @@ enum class UnsplashOrientation(val value: String?) {
     SQUARISH("squarish")
 }
 
+@Parcelize
 data class UnsplashUser(
     val id: String,
-    val name: String,
-    val instagram_username: String,
-    val twitter_username: String
-)
+    val name: String?,
+    val instagram_username: String?,
+    val twitter_username: String?
+): Parcelable
 
+@Parcelize
 data class UnsplashUrls(
     val raw: String,
     val regular: String,
     val small: String
-)
+): Parcelable
 
+@Parcelize
 data class UnsplashLinks(
     val self: String,
     val download: String
-)
+) : Parcelable
 
+@Parcelize
 data class UnsplashPhoto(
     val id: String,
-    val description: String,
-    val overview: String,
+    val description: String?,
+    val width: Int,
+    val height: Int,
     val user: UnsplashUser,
     val urls: UnsplashUrls,
     val links: UnsplashLinks
-)
+) : Parcelable
 
 // Data Model for the Response
 data class UnsplashResponse(

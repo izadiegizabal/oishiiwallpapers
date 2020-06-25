@@ -1,6 +1,9 @@
 package xyz.izadi.oishiiwallpapers.data.paging
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +14,12 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.recycler_view_photo_view.view.*
+import xyz.izadi.oishiiwallpapers.DetailView
 import xyz.izadi.oishiiwallpapers.R
 import xyz.izadi.oishiiwallpapers.data.api.UnsplashPhoto
 import xyz.izadi.oishiiwallpapers.databinding.RecyclerViewPhotoViewBinding
+
 
 class PhotoAdapter constructor(private val context: Context) :
     PagedListAdapter<UnsplashPhoto, PhotoAdapter.PhotoViewHolder>(DIFF_CALLBACK) {
@@ -35,6 +41,17 @@ class PhotoAdapter constructor(private val context: Context) :
         if (photo != null && holder.binding != null) {
             holder.binding.setVariable(BR.photo, photo)
             holder.binding.executePendingBindings()
+            holder.view.setOnClickListener {
+                val intent = Intent(context, DetailView::class.java)
+                intent.putExtra("photo", photo)
+                val options = ActivityOptions
+                    .makeSceneTransitionAnimation(
+                        context as Activity,
+                        holder.view.iv_photo,
+                        holder.view.iv_photo.transitionName
+                    )
+                context.startActivity(intent, options.toBundle())
+            }
         } else {
             Toast.makeText(context, "Error loading the image", Toast.LENGTH_LONG).show()
         }
