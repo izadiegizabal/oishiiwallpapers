@@ -8,7 +8,7 @@
 
         <variable
             name="photo"
-            type="xyz.izadi.oishiiwallpapers.data.UnsplashPhoto" />
+            type="xyz.izadi.oishiiwallpapers.data.api.UnsplashPhoto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -12,7 +12,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import xyz.izadi.oishiiwallpapers.R
-import xyz.izadi.oishiiwallpapers.data.UnsplashPhoto
+import xyz.izadi.oishiiwallpapers.data.api.UnsplashPhoto
 import xyz.izadi.oishiiwallpapers.databinding.RecyclerViewPhotoViewBinding
 
 class PhotoAdapter constructor(private val context: Context) :

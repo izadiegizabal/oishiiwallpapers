@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import xyz.izadi.oishiiwallpapers.data.PhotoRepository
-import xyz.izadi.oishiiwallpapers.data.UnsplashPhoto
+import xyz.izadi.oishiiwallpapers.data.api.PhotoRepository
+import xyz.izadi.oishiiwallpapers.data.api.UnsplashPhoto
 
 @ExperimentalCoroutinesApi
 @FlowPreview
@@ -35,7 +35,7 @@ class PhotosViewModel(application: Application) : AndroidViewModel(application) 
 
         val pagedListConfig = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
-            .setPageSize(10).build()
+            .setPageSize(20).build()
 
         photoPagedList = LivePagedListBuilder(photoDataSourceFactory, pagedListConfig)
             .build()

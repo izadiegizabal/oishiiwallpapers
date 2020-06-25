@@ -6,8 +6,8 @@ import androidx.paging.PageKeyedDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import xyz.izadi.oishiiwallpapers.data.PhotoRepository
-import xyz.izadi.oishiiwallpapers.data.UnsplashPhoto
+import xyz.izadi.oishiiwallpapers.data.api.PhotoRepository
+import xyz.izadi.oishiiwallpapers.data.api.UnsplashPhoto
 
 @ExperimentalCoroutinesApi
 class PhotoDataSourceFactory(

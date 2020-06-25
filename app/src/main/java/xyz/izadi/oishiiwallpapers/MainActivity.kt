@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.AbsListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -30,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = setContentView(this, R.layout.activity_main)
-        binding.rv.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.rv.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.rv.setHasFixedSize(true)
         binding.lifecycleOwner = this
 
         binding.isLoading = true
@@ -69,11 +71,13 @@ class MainActivity : AppCompatActivity() {
         sv_food.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
+                if (newText == photosViewModel.queryChannel.valueOrNull.orEmpty()) return false
                 photosViewModel.queryChannel.offer(newText)
                 return true
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
+                if (query == photosViewModel.queryChannel.valueOrNull.orEmpty()) return false
                 photosViewModel.queryChannel.offer(query)
                 hideKeyboard(this@MainActivity)
                 return true
