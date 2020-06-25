@@ -31,29 +31,24 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        supportActionBar?.hide()
+
         binding = setContentView(this, R.layout.activity_main)
         binding.rv.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.rv.setHasFixedSize(true)
         binding.lifecycleOwner = this
-
         binding.isLoading = true
 
         val photosViewModel = ViewModelProvider(
             this, PhotosViewModel.Factory(application = application)
         ).get(PhotosViewModel::class.java)
-
-
         adapter = PhotoAdapter(this)
-
         observeViewModel(photosViewModel)
-
         rv.adapter = adapter
 
         setUpQueryListener(photosViewModel)
-
         setUpScrollListener()
-
         setUpModeListeners(photosViewModel)
     }
 

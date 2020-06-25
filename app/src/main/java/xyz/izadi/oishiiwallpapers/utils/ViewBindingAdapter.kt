@@ -1,4 +1,4 @@
-package xyz.izadi.oishiiwallpapers.data
+package xyz.izadi.oishiiwallpapers.utils
 
 import android.view.View
 import android.widget.ImageView
