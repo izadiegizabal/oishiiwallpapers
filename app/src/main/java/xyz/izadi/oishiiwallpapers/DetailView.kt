@@ -26,7 +26,7 @@ class DetailView : AppCompatActivity() {
             if (photo?.user?.instagram_username != null) "@${photo.user.instagram_username}"
             else ""
 
-        iv_download.setOnClickListener{
+        iv_download.setOnClickListener {
             if (photo == null) return@setOnClickListener
             val downloadIntent = Intent(Intent.ACTION_VIEW)
             downloadIntent.data = Uri.parse(photo.links.download)

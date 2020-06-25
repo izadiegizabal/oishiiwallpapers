@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="photo"
             type="xyz.izadi.oishiiwallpapers.data.api.UnsplashPhoto" />
@@ -12,8 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navigation_view_layout"
         android:layout_width="match_parent"
-        android:background="@drawable/bg_rounded_top"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_rounded_top"
         app:behavior_hideable="false"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
@@ -25,6 +26,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
             android:text="@string/photo_information"
+            android:textColor="?colorOnSurface"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +39,7 @@
             android:layout_marginBottom="8dp"
             android:alpha="0.87"
             android:text="@string/subtitle_camera_info"
+            android:textColor="?colorOnSurface"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -52,8 +55,8 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:alpha="0.87"
             android:background="@drawable/ic_info"
             android:backgroundTint="@color/design_default_color_secondary"
@@ -63,29 +66,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="256dp"
+            android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/navigation_divider" >
+            app:layout_constraintTop_toTopOf="@id/navigation_divider">
+
             <TextView
                 style="@style/PhotoInfoLabel"
                 visibleGone="@{photo.description != null}"
-                android:text="@string/dv_description"/>
+                android:text="@string/dv_description" />
+
             <TextView
                 style="@style/PhotoInfoItem"
-                tools:text="This is a sample description to see how it would look"
                 visibleGone="@{photo.description != null}"
-                android:text="@{photo.description}"/>
+                android:text="@{photo.description}"
+                tools:text="This is a sample description to see how it would look" />
+
             <TextView
                 style="@style/PhotoInfoLabel"
                 visibleGone="@{photo.width != 0}"
-                android:text="@string/dv_size"/>
+                android:text="@string/dv_size" />
+
             <TextView
                 style="@style/PhotoInfoItem"
                 visibleGone="@{photo.width != 0}"
-                tools:text="1080 x 1290"
-                android:text="@{photo.width + ` x ` + photo.height}"/>
+                android:text="@{photo.width + ` x ` + photo.height}"
+                tools:text="1080 x 1290" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

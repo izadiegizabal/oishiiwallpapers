@@ -6,4 +6,5 @@
     <string name="subtitle_camera_info">写真のインフォメーションなど</string>
     <string name="dv_description">デスクリプション</string>
     <string name="dv_size">サイズ</string>
+    <string name="error_no_country">国が見つかりません。もう一度お試しください。</string>
 </resources>

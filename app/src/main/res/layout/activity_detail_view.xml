@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".DetailView">
+
     <data>
+
         <variable
             name="photo"
             type="xyz.izadi.oishiiwallpapers.data.api.UnsplashPhoto" />

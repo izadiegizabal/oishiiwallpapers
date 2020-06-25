@@ -1,8 +1,11 @@
 package xyz.izadi.oishiiwallpapers
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isGone
@@ -11,6 +14,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mapbox.mapboxsdk.Mapbox
+import com.mapbox.mapboxsdk.camera.CameraPosition
+import com.mapbox.mapboxsdk.geometry.LatLng
+import com.mapbox.mapboxsdk.plugins.places.picker.PlacePicker
+import com.mapbox.mapboxsdk.plugins.places.picker.model.PlacePickerOptions
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -27,29 +35,30 @@ import xyz.izadi.oishiiwallpapers.utils.hideKeyboard
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: PhotoAdapter
+    private lateinit var photosViewModel: PhotosViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         supportActionBar?.hide()
+        Mapbox.getInstance(this, BuildConfig.MAPBOX_API_KEY)
 
         binding = setContentView(this, R.layout.activity_main)
         binding.rv.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        binding.rv.setHasFixedSize(true)
         binding.lifecycleOwner = this
         binding.isLoading = true
 
-        val photosViewModel = ViewModelProvider(
+        photosViewModel = ViewModelProvider(
             this, PhotosViewModel.Factory(application = application)
         ).get(PhotosViewModel::class.java)
         adapter = PhotoAdapter(this)
         observeViewModel(photosViewModel)
         rv.adapter = adapter
 
-        setUpQueryListener(photosViewModel)
+        setUpQueryListener()
         setUpScrollListener()
-        setUpModeListeners(photosViewModel)
+        setUpModeListeners()
     }
 
     private fun observeViewModel(photosViewModel: PhotosViewModel) {
@@ -64,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun setUpQueryListener(photosViewModel: PhotosViewModel) {
+    private fun setUpQueryListener() {
         sv_food.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 offerNewQuery(newText, photosViewModel)
@@ -90,14 +99,21 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun setUpModeListeners(photosViewModel: PhotosViewModel) {
+    private fun setUpModeListeners() {
+        setUpColorListener()
+        setUpCountryListener()
+    }
+
+    private fun setUpColorListener() {
         iv_color_selector.setOnClickListener {
             if (hsv_colours_selector.isGone) {
                 hsv_colours_selector.visibility = View.VISIBLE
                 iv_color_selector.visibility = View.GONE
+                iv_explore.visibility = View.GONE
             } else {
                 hsv_colours_selector.visibility = View.GONE
                 iv_color_selector.visibility = View.VISIBLE
+                iv_explore.visibility = View.VISIBLE
             }
         }
         rg_colour_picker.setOnCheckedChangeListener { _, checkedId ->
@@ -156,6 +172,46 @@ class MainActivity : AppCompatActivity() {
             offerNewColour(pickedColour, photosViewModel)
             hsv_colours_selector.visibility = View.GONE
             iv_color_selector.visibility = View.VISIBLE
+            iv_explore.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setUpCountryListener() {
+        iv_explore.setOnClickListener {
+            val intent = PlacePicker.IntentBuilder()
+                .accessToken(BuildConfig.MAPBOX_API_KEY)
+                .placeOptions(
+                    PlacePickerOptions.builder()
+                        .statingCameraPosition(
+                            CameraPosition.Builder()
+                                .target(LatLng(35.6762, 139.6503))
+                                .zoom(1.0)
+                                .build()
+                        )
+                        .build()
+                )
+                .build(this)
+            startActivityForResult(intent, PLACE_SELECTION_REQUEST_CODE)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PLACE_SELECTION_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+
+            val carmenFeature = PlacePicker.getPlace(data)
+            if (carmenFeature?.id() == null) {
+                Toast.makeText(
+                    this@MainActivity,
+                    getString(R.string.error_no_country),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                val places = carmenFeature.placeName()?.split(",")
+                sv_food.setQuery("${places?.get(places.size - 1)} food", true)
+            }
+
         }
     }
 
@@ -175,5 +231,9 @@ class MainActivity : AppCompatActivity() {
         val newQuery = currentQuery ?: UnsplashQueryOptions()
         newQuery.color = newColor
         photosViewModel.queryChannel.offer(newQuery)
+    }
+
+    companion object {
+        private val PLACE_SELECTION_REQUEST_CODE = 56789
     }
 }

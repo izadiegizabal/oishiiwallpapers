@@ -1,15 +1,11 @@
 package xyz.izadi.oishiiwallpapers
 
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import xyz.izadi.oishiiwallpapers.data.api.UnsplashPhoto
 import xyz.izadi.oishiiwallpapers.databinding.FragmentItemListDialogListDialogBinding
 
@@ -22,7 +18,12 @@ class ItemListDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_item_list_dialog_list_dialog, container, false)
+        binding = DataBindingUtil.inflate(
+            layoutInflater,
+            R.layout.fragment_item_list_dialog_list_dialog,
+            container,
+            false
+        )
         return binding.root
     }
 

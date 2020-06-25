@@ -1,6 +1,7 @@
 package xyz.izadi.oishiiwallpapers.utils
 
 import android.app.Activity
+import android.content.res.Configuration
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 
@@ -13,5 +14,10 @@ fun hideKeyboard(activity: Activity) {
         view = View(activity)
     }
     imm.hideSoftInputFromWindow(view.windowToken, 0)
-    view.clearFocus();
+    view.clearFocus()
+}
+
+fun isDarkTheme(activity: Activity): Boolean {
+    return activity.resources.configuration.uiMode and
+            Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 }

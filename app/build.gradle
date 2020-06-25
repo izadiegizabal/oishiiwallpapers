@@ -70,6 +70,9 @@ dependencies {
     implementation "io.coil-kt:coil:0.11.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

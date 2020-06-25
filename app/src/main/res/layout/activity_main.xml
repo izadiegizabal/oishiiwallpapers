@@ -5,6 +5,7 @@
     tools:context=".MainActivity">
 
     <data>
+
         <variable
             name="isLoading"
             type="boolean" />
@@ -60,7 +61,19 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="0dp"
                 android:src="@drawable/ic_rgb_colour"
+                app:layout_constraintEnd_toStartOf="@+id/iv_explore"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sv_food" />
+
+            <ImageView
+                android:id="@+id/iv_explore"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
+                android:src="@drawable/ic_twotone_explore"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_color_selector"
                 app:layout_constraintTop_toBottomOf="@+id/sv_food" />
 
             <HorizontalScrollView

@@ -4,7 +4,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import retrofit2.http.GET
 import retrofit2.http.Query
-import java.util.*
 
 data class UnsplashQueryOptions(
     var query: String = "food",
@@ -46,14 +45,14 @@ data class UnsplashUser(
     val name: String?,
     val instagram_username: String?,
     val twitter_username: String?
-): Parcelable
+) : Parcelable
 
 @Parcelize
 data class UnsplashUrls(
     val raw: String,
     val regular: String,
     val small: String
-): Parcelable
+) : Parcelable
 
 @Parcelize
 data class UnsplashLinks(
