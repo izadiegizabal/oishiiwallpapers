@@ -3,4 +3,6 @@
     <string name="query_hint">What is your favourite food?</string>
     <string name="photo_information">Photo Information</string>
     <string name="subtitle_camera_info">Detailed information of the photo</string>
+    <string name="dv_description">Description</string>
+    <string name="dv_size">Size</string>
 </resources>

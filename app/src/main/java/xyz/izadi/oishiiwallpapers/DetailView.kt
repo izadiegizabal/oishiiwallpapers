@@ -35,6 +35,10 @@ class DetailView : AppCompatActivity() {
             }
         }
 
+        iv_info.setOnClickListener {
+            if (photo == null) return@setOnClickListener
+            ItemListDialogFragment.newInstance(photo).show(supportFragmentManager, "dialog")
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
