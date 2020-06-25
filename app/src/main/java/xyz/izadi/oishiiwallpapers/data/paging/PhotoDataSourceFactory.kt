@@ -8,10 +8,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import xyz.izadi.oishiiwallpapers.data.api.PhotoRepository
 import xyz.izadi.oishiiwallpapers.data.api.UnsplashPhoto
+import xyz.izadi.oishiiwallpapers.data.api.UnsplashQueryOptions
 
 @ExperimentalCoroutinesApi
 class PhotoDataSourceFactory(
-    private val currentQuery: ConflatedBroadcastChannel<String>,
+    private val currentQuery: ConflatedBroadcastChannel<UnsplashQueryOptions>,
     private val repository: PhotoRepository,
     private val scope: CoroutineScope
 ) : DataSource.Factory<Int, UnsplashPhoto>() {

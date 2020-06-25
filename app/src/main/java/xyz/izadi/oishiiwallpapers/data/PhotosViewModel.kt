@@ -1,4 +1,4 @@
-package xyz.izadi.oishiiwallpapers.data.paging
+package xyz.izadi.oishiiwallpapers.data
 
 import android.app.Application
 import androidx.lifecycle.*
@@ -14,6 +14,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import xyz.izadi.oishiiwallpapers.data.api.PhotoRepository
 import xyz.izadi.oishiiwallpapers.data.api.UnsplashPhoto
+import xyz.izadi.oishiiwallpapers.data.api.UnsplashQueryOptions
+import xyz.izadi.oishiiwallpapers.data.paging.PhotoDataSourceFactory
 
 @ExperimentalCoroutinesApi
 @FlowPreview
@@ -21,15 +23,16 @@ class PhotosViewModel(application: Application) : AndroidViewModel(application) 
     var photoPagedList: LiveData<PagedList<UnsplashPhoto>>? = null
     private var liveDataSource: LiveData<PageKeyedDataSource<Int, UnsplashPhoto>>? = null
 
-    val queryChannel = ConflatedBroadcastChannel<String>()
+    val queryChannel = ConflatedBroadcastChannel<UnsplashQueryOptions>()
 
     init {
         val repository = PhotoRepository()
-        val photoDataSourceFactory = PhotoDataSourceFactory(
-            currentQuery = queryChannel,
-            repository = repository,
-            scope = viewModelScope
-        )
+        val photoDataSourceFactory =
+            PhotoDataSourceFactory(
+                currentQuery = queryChannel,
+                repository = repository,
+                scope = viewModelScope
+            )
 
         liveDataSource = photoDataSourceFactory.photoLiveDataSource
 

@@ -4,19 +4,19 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 data class UnsplashQueryOptions(
-    val query: String,
-    val orderBy: UnsplashOrderBy,
-    val color: UnsplashColors,
-    val orientation: UnsplashOrientation
+    var query: String = "food",
+    var orderBy: UnsplashOrderBy = UnsplashOrderBy.RELEVANT,
+    var color: UnsplashColor = UnsplashColor.ANY,
+    var orientation: UnsplashOrientation = UnsplashOrientation.ANY
 )
 
-enum class UnsplashOrderBy(value: String) {
+enum class UnsplashOrderBy(val value: String) {
     RELEVANT("relevant"),
     LATEST("latest")
 }
 
-enum class UnsplashColors(value: String) {
-    ANY(""),
+enum class UnsplashColor(val value: String?) {
+    ANY(null),
     BLACKANDWHITE("black_and_white"),
     BLACK("black"),
     WHITE("white"),
@@ -30,8 +30,8 @@ enum class UnsplashColors(value: String) {
     BLUE("blue")
 }
 
-enum class UnsplashOrientation(value: String) {
-    ANY(""),
+enum class UnsplashOrientation(val value: String?) {
+    ANY(null),
     PORTRAIT("portrait"),
     LANDSCAPE("landscape"),
     SQUARISH("squarish")
@@ -77,6 +77,7 @@ interface UnsplashApi {
     suspend fun getPics(
         @Query("query") searchQuery: String = "food",
         @Query("page") currentPage: Int = 1,
-        @Query("per_page") perPage: Int = 20
+        @Query("per_page") perPage: Int = 20,
+        @Query("color") color: String?
     ): UnsplashResponse
 }
