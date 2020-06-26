@@ -34,7 +34,7 @@
     <style name="DetailActionButtons">
         <item name="android:layout_height">32dp</item>
         <item name="android:layout_width">32dp</item>
-        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
     </style>
 
     <style name="Divider">

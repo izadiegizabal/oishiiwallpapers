@@ -74,88 +74,16 @@
                 android:src="@drawable/ic_twotone_explore"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_color_selector"
-                app:layout_constraintTop_toBottomOf="@+id/sv_food" />
+                app:layout_constraintTop_toBottomOf="@id/sv_food" />
 
-            <HorizontalScrollView
-                android:id="@+id/hsv_colours_selector"
-                android:layout_width="fill_parent"
+            <include
+                android:id="@+id/cp_main"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"
+                layout="@layout/color_picker"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sv_food">
-
-                <RadioGroup
-                    android:id="@+id/rg_colour_picker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp">
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/rb_colour_rgb"
-                        style="@style/ColorRadio"
-                        android:button="@drawable/ic_rgb_colour" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/rb_colour_bnw"
-                        style="@style/ColorRadio"
-                        android:button="@drawable/ic_bnw_colour" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/rb_colour_black"
-                        style="@style/ColorRadio"
-                        android:button="@drawable/ic_black_colour" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/rb_colour_white"
-                        style="@style/ColorRadio"
-                        android:button="@drawable/ic_white_colour" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/rb_colour_yellow"
-                        style="@style/ColorRadio"
-                        android:button="@drawable/ic_yellow_colour" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/rb_colour_orange"
-                        style="@style/ColorRadio"
-                        android:button="@drawable/ic_orange_colour" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/rb_colour_red"
-                        style="@style/ColorRadio"
-                        android:button="@drawable/ic_red_colour" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/rb_colour_pink"
-                        style="@style/ColorRadio"
-                        android:button="@drawable/ic_pink_colour" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/rb_colour_purple"
-                        style="@style/ColorRadio"
-                        android:button="@drawable/ic_purple_colour" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/rb_colour_blue"
-                        style="@style/ColorRadio"
-                        android:button="@drawable/ic_blue_colour" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/rb_colour_teal"
-                        style="@style/ColorRadio"
-                        android:button="@drawable/ic_teal_colour" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/rb_colour_green"
-                        style="@style/ColorRadio"
-                        android:button="@drawable/ic_green_colour" />
-                </RadioGroup>
-
-            </HorizontalScrollView>
+                app:layout_constraintTop_toBottomOf="@+id/sv_food" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -20,6 +20,7 @@ import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.plugins.places.picker.PlacePicker
 import com.mapbox.mapboxsdk.plugins.places.picker.model.PlacePickerOptions
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.color_picker.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import xyz.izadi.oishiiwallpapers.data.PhotosViewModel
@@ -106,12 +107,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpColorListener() {
         iv_color_selector.setOnClickListener {
-            if (hsv_colours_selector.isGone) {
-                hsv_colours_selector.visibility = View.VISIBLE
+            if (cp_main.isGone) {
+                cp_main.visibility = View.VISIBLE
                 iv_color_selector.visibility = View.GONE
                 iv_explore.visibility = View.GONE
             } else {
-                hsv_colours_selector.visibility = View.GONE
+                cp_main.visibility = View.GONE
                 iv_color_selector.visibility = View.VISIBLE
                 iv_explore.visibility = View.VISIBLE
             }
@@ -171,7 +172,7 @@ class MainActivity : AppCompatActivity() {
 
             photosViewModel.offerNewColour(pickedColour)
 
-            hsv_colours_selector.visibility = View.GONE
+            cp_main.visibility = View.GONE
             iv_color_selector.visibility = View.VISIBLE
             iv_explore.visibility = View.VISIBLE
         }
