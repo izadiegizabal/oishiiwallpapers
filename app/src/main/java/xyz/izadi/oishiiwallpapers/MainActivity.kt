@@ -76,13 +76,13 @@ class MainActivity : AppCompatActivity() {
     private fun setUpQueryListener() {
         sv_food.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
-                offerNewQuery(newText, photosViewModel)
+                photosViewModel.offerNewQuery(newText)
                 return true
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 hideKeyboard(this@MainActivity)
-                offerNewQuery(query, photosViewModel)
+                photosViewModel.offerNewQuery(query)
                 return true
             }
         })
@@ -169,7 +169,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            offerNewColour(pickedColour, photosViewModel)
+            photosViewModel.offerNewColour(pickedColour)
+
             hsv_colours_selector.visibility = View.GONE
             iv_color_selector.visibility = View.VISIBLE
             iv_explore.visibility = View.VISIBLE
@@ -213,24 +214,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-    }
-
-    private fun offerNewQuery(newText: String, photosViewModel: PhotosViewModel) {
-        val currentQuery = photosViewModel.queryChannel.valueOrNull
-        if (currentQuery != null && newText == currentQuery.query) return
-
-        val newQuery = currentQuery ?: UnsplashQueryOptions()
-        newQuery.query = newText
-        photosViewModel.queryChannel.offer(newQuery)
-    }
-
-    private fun offerNewColour(newColor: UnsplashColor, photosViewModel: PhotosViewModel) {
-        val currentQuery = photosViewModel.queryChannel.valueOrNull
-        if (currentQuery != null && newColor == currentQuery.color) return
-
-        val newQuery = currentQuery ?: UnsplashQueryOptions()
-        newQuery.color = newColor
-        photosViewModel.queryChannel.offer(newQuery)
     }
 
     companion object {

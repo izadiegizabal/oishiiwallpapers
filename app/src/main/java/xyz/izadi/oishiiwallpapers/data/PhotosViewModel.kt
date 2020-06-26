@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import xyz.izadi.oishiiwallpapers.data.api.PhotoRepository
+import xyz.izadi.oishiiwallpapers.data.api.UnsplashColor
 import xyz.izadi.oishiiwallpapers.data.api.UnsplashPhoto
 import xyz.izadi.oishiiwallpapers.data.api.UnsplashQueryOptions
 import xyz.izadi.oishiiwallpapers.data.paging.PhotoDataSourceFactory
@@ -47,6 +48,24 @@ class PhotosViewModel(application: Application) : AndroidViewModel(application) 
             .debounce(QUERY_DEBOUNCE)
             .onEach { (liveDataSource as MutableLiveData<PageKeyedDataSource<Int, UnsplashPhoto>>).value?.invalidate() }
             .launchIn(viewModelScope)
+    }
+
+    fun offerNewQuery(newText: String) {
+        val currentQuery = queryChannel.valueOrNull
+        if (currentQuery != null && newText == currentQuery.query) return
+
+        val newQuery = currentQuery ?: UnsplashQueryOptions()
+        newQuery.query = newText
+        queryChannel.offer(newQuery)
+    }
+
+    fun offerNewColour(newColor: UnsplashColor) {
+        val currentQuery = queryChannel.valueOrNull
+        if (currentQuery != null && newColor == currentQuery.color) return
+
+        val newQuery = currentQuery ?: UnsplashQueryOptions()
+        newQuery.color = newColor
+        queryChannel.offer(newQuery)
     }
 
     class Factory(private val application: Application) : ViewModelProvider.NewInstanceFactory() {
