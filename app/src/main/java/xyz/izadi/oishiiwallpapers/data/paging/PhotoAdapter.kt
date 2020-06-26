@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,20 +42,25 @@ class PhotoAdapter constructor(private val context: Context) :
         if (photo != null && holder.binding != null) {
             holder.binding.setVariable(BR.photo, photo)
             holder.binding.executePendingBindings()
+
             holder.view.setOnClickListener {
-                val intent = Intent(context, DetailView::class.java)
-                intent.putExtra("photo", photo)
-                val options = ActivityOptions
-                    .makeSceneTransitionAnimation(
-                        context as Activity,
-                        holder.view.iv_photo,
-                        holder.view.iv_photo.transitionName
-                    )
-                context.startActivity(intent, options.toBundle())
+                openDetailView(photo, holder)
             }
         } else {
             Toast.makeText(context, "Error loading the image", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun openDetailView(photo: UnsplashPhoto, holder: PhotoViewHolder) {
+        val intent = Intent(context, DetailView::class.java)
+        intent.putExtra("photo", photo)
+        val options = ActivityOptions
+            .makeSceneTransitionAnimation(
+                context as Activity,
+                holder.view.iv_photo,
+                holder.view.iv_photo.transitionName
+            )
+        context.startActivity(intent, options.toBundle())
     }
 
     inner class PhotoViewHolder(photoView: View) : RecyclerView.ViewHolder(photoView) {
