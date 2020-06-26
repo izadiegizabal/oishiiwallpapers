@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:loadImageUrl="@{photo.urls.small}"
             app:photo_height="@{photo.height}"
-            app:photo_width="@{photo.width}"/>
+            app:photo_width="@{photo.width}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -25,7 +25,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import xyz.izadi.oishiiwallpapers.data.PhotosViewModel
 import xyz.izadi.oishiiwallpapers.data.api.UnsplashColor
-import xyz.izadi.oishiiwallpapers.data.api.UnsplashQueryOptions
 import xyz.izadi.oishiiwallpapers.data.paging.PhotoAdapter
 import xyz.izadi.oishiiwallpapers.databinding.ActivityMainBinding
 import xyz.izadi.oishiiwallpapers.utils.hideKeyboard

@@ -16,7 +16,6 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            app:visibleGone="@{isLoading}"
             android:id="@+id/progressBar1"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
@@ -25,7 +24,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/rv"
-            app:layout_constraintTop_toBottomOf="@+id/cl_main_search_area" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_main_search_area"
+            app:visibleGone="@{isLoading}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_main_search_area"
@@ -78,9 +78,9 @@
 
             <include
                 android:id="@+id/cp_main"
+                layout="@layout/color_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                layout="@layout/color_picker"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sv_food" />
